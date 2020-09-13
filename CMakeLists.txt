@@ -1,6 +1,11 @@
-cmake_minimum_required(VERSION 3.15)
-project(laba1)
+cmake_minimum_required(VERSION 3.2)
+project(Cpp_Linked_List VERSION 1.0.0)
 
-set(CMAKE_CXX_STANDARD 14)
+file(GLOB files
+        "main.cpp"
+        "libraries/*.h"
+        "libraries/*.cpp"
+        )
 
-add_executable(laba1 main.cpp)
+
+add_executable(Cpp_Linked_List ${files})
