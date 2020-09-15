@@ -31,28 +31,21 @@ void task(List *&list) {
         length++;
         sum += current->getValue();
 
-        if (is_up) {
-            if ((current->getNext() == nullptr || current->getNext()->getValue() < current->getValue()) &&
-                (length > max_length || (length == max_length && sum > max_sum))) {
+        //Если последовательность прервалась
+        if (current->getNext() == nullptr ||
+            (is_up && current->getNext()->getValue() <= current->getValue()) ||
+            (!is_up && current->getNext()->getValue() >= current->getValue())) {
+
+            //Если новый максимум
+            if (length > max_length || (length == max_length && sum > max_sum)) {
                 max_length = length;
                 max_sum = sum;
                 remove_item = current;
-
-                is_up = false;
-                sum = current->getValue();
-                length = 1;
             }
-        } else {
-            if ((current->getNext() == nullptr || current->getNext()->getValue() > current->getValue()) &&
-                (length > max_length || (length == max_length && sum > max_sum))) {
-                max_length = length;
-                max_sum = sum;
-                remove_item = current;
 
-                is_up = true;
-                sum = current->getValue();
-                length = 1;
-            }
+            is_up = !is_up;
+            sum = current->getValue();
+            length = 1;
         }
 
         current = current->getNext();
@@ -60,4 +53,6 @@ void task(List *&list) {
 
     list->remove(remove_item);
     list->print();
+
+    delete current;
 }
