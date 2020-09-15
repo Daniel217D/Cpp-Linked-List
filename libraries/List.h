@@ -22,6 +22,10 @@ public:
     void print();
 };
 
-void read_list_console(List *&list);
+void fill_list_console(List *&list);
+
+void fill_list_random(List *&list);
+
+void fill_list_file(List *&list);
 
 void task(List *&list);
