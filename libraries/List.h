@@ -5,7 +5,7 @@ private:
     int value;
     List *next;
 public:
-    List(int _value) ;
+    List(int _value);
 
     ~List();
 

@@ -5,7 +5,6 @@
 int main() {
     srand(time(NULL));
 
-
     List *list = nullptr;
     bool is_exit = false;
     short menu_item;
@@ -14,7 +13,7 @@ int main() {
         print_menu();
         menu_item = get_var<short>("Выберите пункт меню: ", 1, 3);
 
-        switch(menu_item) {
+        switch (menu_item) {
             case 1: {
                 fill_list_console(list);
                 break;
@@ -37,7 +36,5 @@ int main() {
         is_exit = ask_exit();
     }
 
-
-    delete list;
     return 0;
 }

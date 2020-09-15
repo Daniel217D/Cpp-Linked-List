@@ -27,7 +27,7 @@ List *List::getLast() {
 
     while (current->next) {
         current = current->next;
-    };
+    }
 
     return current;
 }
