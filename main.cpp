@@ -1,58 +1,43 @@
-#include <iostream>
-
+#include "libraries/utils.h"
 #include "libraries/List.h"
-
-using namespace std;
-
-void task(List *&list);
+#include "libraries/tasks.h"
 
 int main() {
-    List *list;
-    read_list_console(list);
+    srand(time(NULL));
 
-    task(list);
+
+    List *list = nullptr;
+    bool is_exit = false;
+    short menu_item;
+
+    while (!is_exit) {
+        print_menu();
+        menu_item = get_var<short>("Выберите пункт меню: ", 1, 3);
+
+        switch(menu_item) {
+            case 1: {
+                fill_list_console(list);
+                break;
+            }
+            case 2: {
+                fill_list_random(list);
+                break;
+            }
+            case 3: {
+                fill_list_file(list);
+                break;
+            }
+        }
+
+        list->print();
+        task(list);
+        list->print();
+
+        delete list;
+        is_exit = ask_exit();
+    }
+
 
     delete list;
     return 0;
-}
-
-// Самая длинная упорядоченная подпоследовательность
-// Если несколько, то с наибольшей суммой
-// Если несколько, то первую
-// Удалить последний элемент
-
-void task(List *&list) {
-    list->print();
-    bool is_up = true;
-    int sum = 0, max_sum = 0, length = 0, max_length = 0;
-    List *remove_item = nullptr, *current = list;
-
-    while (current) {
-        length++;
-        sum += current->getValue();
-
-        //Если последовательность прервалась
-        if (current->getNext() == nullptr ||
-            (is_up && current->getNext()->getValue() <= current->getValue()) ||
-            (!is_up && current->getNext()->getValue() >= current->getValue())) {
-
-            //Если новый максимум
-            if (length > max_length || (length == max_length && sum > max_sum)) {
-                max_length = length;
-                max_sum = sum;
-                remove_item = current;
-            }
-
-            is_up = !is_up;
-            sum = current->getValue();
-            length = 1;
-        }
-
-        current = current->getNext();
-    }
-
-    list->remove(remove_item);
-    list->print();
-
-    delete current;
 }
