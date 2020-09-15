@@ -72,11 +72,17 @@ void List::print() {
 }
 
 void read_list_console(List *&list) {
-    int num;
-    cout << "Введите числа: ";
+    int num, length;
+
+    cout << "Количество чисел: ";
+    cin >> length;
+    cout << "\n";
+    cout << "Количество чисел: ";
     cin >> num;
+    cout << "\n";
+
     list = new List(num);
-    for (int i = 1; i < 10; ++i) {
+    for (int i = 0; i < length - 1; ++i) {
         cin >> num;
         list->add(num);
     }
