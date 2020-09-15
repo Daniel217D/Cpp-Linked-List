@@ -18,7 +18,9 @@ int main() {
 
 // Самая длинная упорядоченная подпоследовательность
 // Если несколько, то с наибольшей суммой
-// Если несколько, то первую;
+// Если несколько, то первую
+// Удалить последний элемент
+
 void task(List *&list) {
     list->print();
     bool is_up = true;
@@ -30,22 +32,26 @@ void task(List *&list) {
         sum += current->getValue();
 
         if (is_up) {
-            if ((current->getNext() == nullptr || current->getNext()->getValue() <= current->getValue()) &&
-                (length > max_length || (length <= max_length && sum > max_sum))) {
+            if ((current->getNext() == nullptr || current->getNext()->getValue() < current->getValue()) &&
+                (length > max_length || (length == max_length && sum > max_sum))) {
                 max_length = length;
                 max_sum = sum;
                 remove_item = current;
+
                 is_up = false;
-                sum = 0;
-                length = 0;
+                sum = current->getValue();
+                length = 1;
             }
         } else {
-            if ((current->getNext() == nullptr || current->getNext()->getValue() >= current->getValue()) &&
-                sum > max_sum) {
+            if ((current->getNext() == nullptr || current->getNext()->getValue() > current->getValue()) &&
+                (length > max_length || (length == max_length && sum > max_sum))) {
+                max_length = length;
                 max_sum = sum;
                 remove_item = current;
+
                 is_up = true;
-                sum = 0;
+                sum = current->getValue();
+                length = 1;
             }
         }
 
