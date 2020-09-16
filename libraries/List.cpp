@@ -33,8 +33,7 @@ List *List::getLast() {
 }
 
 List *List::add(int _value) {
-    auto *list = new List(_value);
-    return this->getLast()->next = list;
+    return this->getLast()->next = new List(_value);
 }
 
 void List::remove(List *item) {
