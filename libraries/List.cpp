@@ -84,9 +84,7 @@ void fill_list_console(List *&list) {
 }
 
 void fill_list_random(List *&list) {
-    int length;
-
-    length = get_var<int>("Количество чисел: ");
+    int length = get_var<int>("Количество чисел: ");
 
     list = new List(mrand(-50, 50));
     for (int i = 0; i < length - 1; ++i) {
