@@ -36,13 +36,13 @@ List *List::add(int _value) {
     return this->getLast()->next = new List(_value);
 }
 
-void List::remove(List *item) {
+void List::remove(List *&item) {
     if (this == item) {
         if (this->next) {
             this->value = this->next->value;
             this->next = this->next->next;
         } else {
-            //
+            item = nullptr;
         }
     } else {
         auto *current = this;

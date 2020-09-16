@@ -17,7 +17,7 @@ public:
 
     List *add(int _value);
 
-    void remove(List *item);
+    void remove(List *&item);
 
     void print();
 };
