@@ -39,25 +39,34 @@ List *List::add(int _value) {
 void List::remove(List *&item) {
     if (this == item) {
         if (this->next) {
+            auto *temp = this->next;
+
             this->value = this->next->value;
             this->next = this->next->next;
+
+            temp->next = nullptr;
+            delete temp;
         } else {
             item = nullptr;
         }
     } else {
         auto *current = this;
+        bool founded = false;
 
-        while (current) {
+        while (current && !founded) {
             if (current->next == item) {
-                List *next;
                 if (current->next->next) {
-                    next = current->next->next;
+                    auto *temp = current->next;
+                    current->next = current->next->next;
+
+                    temp->next = nullptr;
+                    delete temp;
                 } else {
-                    next = nullptr;
+                    delete current->next;
+                    current->next = nullptr;
                 }
-                item->next = nullptr;
-                delete item;
-                current->next = next;
+
+                founded = true;
             }
             current = current->next;
         }
