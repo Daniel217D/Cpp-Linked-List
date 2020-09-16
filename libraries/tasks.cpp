@@ -43,5 +43,6 @@ void task(List *&list) {
     }
 
     list->remove(remove_item);
+    delete remove_item;
     delete current;
 }
