@@ -66,7 +66,7 @@ void List::remove(List *item) {
 
 void List::print() {
     auto *current = this;
-    cout << "\n" << "Значения элементов: ";
+    cout << "Значения элементов: ";
     while (current) {
         cout << current->value << (current->next ? ", " : "\n");
         current = current->next;
