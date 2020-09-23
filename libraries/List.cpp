@@ -6,6 +6,7 @@
 using std::cout;
 using std::string;
 using std::ifstream;
+using std::ofstream;
 
 Node::Node(int _value, Node *_next = nullptr) : value(_value), next(_next) {}
 
@@ -45,6 +46,28 @@ bool List::read_file(const string &name) {
     fin.close();
     return success;
 }
+
+bool List::print_file(const string &name, const string &status = "") {
+        ofstream fout(name);
+        bool success = false;
+
+        if (fout.is_open()) {
+            Node *current = node;
+            success = true;
+
+            while (current) {
+                fout << current->value << " ";
+                current = current->next;
+            }
+
+            if (!status.empty()) {
+                fout << "\n" << status;
+            }
+        }
+
+        fout.close();
+        return success;
+    }
 
 bool List::is_empty() {
     return node == nullptr;
@@ -115,6 +138,23 @@ void List::remove(Node *&del_el) {
             delete del_el;
             current->next = temp;
         }
+    }
+}
+
+void List::remove_next(Node *&el) {
+    if(el == nullptr) {
+        return;
+    }
+
+    if(el->next->next) {
+        Node *temp = el->next;
+        el->next = el->next->next;
+
+        temp->next = nullptr;
+        delete temp;
+    } else {
+        delete el->next;
+        el->next = nullptr;
     }
 }
 

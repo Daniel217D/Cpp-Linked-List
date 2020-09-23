@@ -33,6 +33,8 @@ public:
 
     bool read_file(const string &name);
 
+    bool print_file(const string &name, const string &status);
+
     bool is_empty();
 
     void add_to_head(int value);
@@ -42,6 +44,8 @@ public:
     void add_after(Node *&after, int value);
 
     void remove(Node *&del_el);
+
+    static void remove_next(Node *&el);
 
     void print();
 };
