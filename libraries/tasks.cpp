@@ -9,9 +9,9 @@ using namespace std;
 // Если несколько, то первую
 // Удалить последний элемент найденной последовательности
 bool task(List *&list) {
-    bool is_up = true;
+    bool is_up = true, result;
     int sum = 0, max_sum = 0, length = 0, max_length = 0;
-    Node *remove_item = nullptr, *current = list->get_node();
+    Node *remove_item = nullptr, *current = list->get_node(), *current_prev = nullptr;
 
     while (current) {
         length++;
@@ -25,7 +25,7 @@ bool task(List *&list) {
             if (length > 1 && (length > max_length || (length == max_length && sum > max_sum))) {
                 max_length = length;
                 max_sum = sum;
-                remove_item = current;
+                remove_item = current_prev;
             }
 
             is_up = !is_up;
@@ -39,10 +39,13 @@ bool task(List *&list) {
             }
         }
 
+        current_prev = current;
         current = current->get_next();
     }
 
-    list->remove(remove_item);
+    result = remove_item != nullptr;
 
-    return remove_item != NULL;
+    List::remove_next(remove_item);
+
+    return result;
 }
