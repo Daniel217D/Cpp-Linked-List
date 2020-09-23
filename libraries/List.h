@@ -1,31 +1,47 @@
 #pragma once
 
-class List {
+#include <iostream>
+
+using std::string;
+
+class Node {
 private:
     int value;
-    List *next;
-public:
-    List(int _value);
 
+    Node *next;
+
+    friend class List;
+
+public:
+    explicit Node(int _value, Node *_next);
+
+    ~Node();
+
+    Node *get_next();
+
+    int get_value();
+};
+
+class List {
+private:
+    Node *node = nullptr;
+
+public:
     ~List();
 
-    int getValue();
+    Node *get_node();
 
-    List *getNext();
+    bool read_file(const string &name);
 
-    List *getLast();
+    bool is_empty();
 
-    List *add(int _value);
+    void add_to_head(int value);
 
-    void remove(List *&item);
+    void add_to_tail(int value);
+
+    void add_after(Node *&after, int value);
+
+    void remove(Node *&del_el);
 
     void print();
 };
-
-void fill_list_console(List *&list);
-
-void fill_list_random(List *&list);
-
-void fill_list_file(List *&list);
-
-void task(List *&list);
