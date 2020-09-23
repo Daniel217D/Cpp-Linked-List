@@ -8,21 +8,21 @@ using namespace std;
 // Если несколько, то с наибольшей суммой
 // Если несколько, то первую
 // Удалить последний элемент найденной последовательности
-void task(List *&list) {
+bool task(List *&list) {
     bool is_up = true;
     int sum = 0, max_sum = 0, length = 0, max_length = 0;
-    List *remove_item = nullptr, *current = list;
+    Node *remove_item = nullptr, *current = list->get_node();
 
     while (current) {
         length++;
-        sum += current->getValue();
+        sum += current->get_value();
 
         //Если последовательность прервалась
-        if (current->getNext() == nullptr || (is_up && current->getNext()->getValue() <= current->getValue()) ||
-            (!is_up && current->getNext()->getValue() >= current->getValue())) {
+        if (current->get_next() == nullptr || (is_up && current->get_next()->get_value() <= current->get_value()) ||
+            (!is_up && current->get_next()->get_value() >= current->get_value())) {
 
             //Если новый максимум
-            if (length > max_length || (length == max_length && sum > max_sum)) {
+            if (length > 1 && (length > max_length || (length == max_length && sum > max_sum))) {
                 max_length = length;
                 max_sum = sum;
                 remove_item = current;
@@ -30,19 +30,19 @@ void task(List *&list) {
 
             is_up = !is_up;
             //Если следующий элемент равен текущему, то текущий можно не учитывать в последовательности
-            if (!current->getNext() || current->getNext()->getValue() == current->getValue()) {
+            if (!current->get_next() || current->get_next()->get_value() == current->get_value()) {
                 sum = 0;
                 length = 0;
             } else {
-                sum = current->getValue();
+                sum = current->get_value();
                 length = 1;
             }
         }
 
-        current = current->getNext();
+        current = current->get_next();
     }
 
     list->remove(remove_item);
-    delete remove_item;
-    delete current;
+
+    return remove_item != NULL;
 }

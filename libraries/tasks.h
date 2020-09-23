@@ -2,4 +2,4 @@
 
 #include "List.h"
 
-void task(List *&list);
+bool task(List *&list);
