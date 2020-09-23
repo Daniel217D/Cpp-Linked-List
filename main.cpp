@@ -10,16 +10,9 @@ int main() {
     bool success = list->read_file("files/input1.txt");
 
     if (success) {
-        cout << "Список:\n";
-        list->print();
-
         success = task(list);
-
-        cout << "Результат:\n";
-        list->print();
-        if(!success) {
-            cout << "Подпоследовательность не найдена";
-        }
+        list->print_file("files/output1.txt", !success ? "Подпоследовательность не найдена" : "");
+        cout << "Работа успешно завершена";
     } else {
         cout << "Файл не открыт\n";
     }
