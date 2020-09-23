@@ -1,40 +1,29 @@
-#include "libraries/utils.h"
+#include <iostream>
+
 #include "libraries/List.h"
 #include "libraries/tasks.h"
 
+using std::cout;
+
 int main() {
-    srand(time(NULL));
+    List *list = new List;
+    bool success = list->read_file("files/input1.txt");
 
-    List *list = nullptr;
-    bool is_exit = false;
-    short menu_item;
+    if (success) {
+        cout << "Список:\n";
+        list->print();
 
-    while (!is_exit) {
-        print_menu();
-        menu_item = get_var<short>("Выберите пункт меню: ", 1, 3);
+        success = task(list);
 
-        switch (menu_item) {
-            case 1: {
-                fill_list_console(list);
-                break;
-            }
-            case 2: {
-                fill_list_random(list);
-                break;
-            }
-            case 3: {
-                fill_list_file(list);
-                break;
-            }
+        cout << "Результат:\n";
+        list->print();
+        if(!success) {
+            cout << "Подпоследовательность не найдена";
         }
-
-        list->print();
-        task(list);
-        list->print();
-
-        delete list;
-        is_exit = ask_exit();
+    } else {
+        cout << "Файл не открыт\n";
     }
 
+    delete list;
     return 0;
 }
